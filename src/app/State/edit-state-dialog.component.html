@@ -1,0 +1,66 @@
+<form class="form-horizontal"
+      autocomplete="off"
+      #editStateModal="ngForm"
+      (ngSubmit)="save()">
+    <abp-modal-header [title]="'Edit state' | localize"
+                      (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body">
+
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="name">
+                {{ "Name" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="name"
+                       id="name"
+                       required
+                       maxlength="20"
+                       [(ngModel)]="state.name"
+                       #nameModel="ngModel"
+                       #nameEl />
+                <abp-validation-summary [control]="nameModel"
+                                        [controlEl]="nameEl"></abp-validation-summary>
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="description">
+                {{ "Description" | localize }}
+            </label>
+            <div class="col-md-9">
+                <input type="text"
+                       class="form-control"
+                       name="description"
+                       id="description"
+                       maxlength="100"
+                       [(ngModel)]="state.description"
+                       #descriptionModel="ngModel"
+                       #descriptionEl />
+
+            </div>
+        </div>
+        <div class="form-group row required">
+            <label class="col-md-3 col-form-label" for="countryId">
+                {{ "Country" | localize }}
+            </label>
+            <div class="col-md-9">
+                <select class="form-control"
+                        name="countryId"
+                        id="countryId"
+                        [(ngModel)]="state.countryId"
+                        #countryIdModel="ngModel">
+                    <option *ngFor="let country of countries" value="{{country.id}}">
+                        {{ country.name }}
+                    </option>
+                </select>
+
+
+            </div>
+        </div>
+
+    </div>
+    <abp-modal-footer [cancelDisabled]="saving"
+                      [saveDisabled]="!editStateModal.form.valid || saving"
+                      (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>
